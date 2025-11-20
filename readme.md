@@ -8,11 +8,11 @@ Submitted by:
 - **Joshua Moralez**
 - **Jesus Lopez**
 
-Time spent: **X** hours spent in total
+Time spent: **6** hours spent in total
 
 ## Summary
 
-This document provides an overview, project spec, and wireframes for our team's capstone project: An app that **short description of your app**
+This document provides an overview, project spec, and wireframes for our team's capstone project: An app **where you can shop for all of your high-quality and diverse dairy needs. It's modern, intuitive to use, and fits your needs whether personal or business**
 
 If we had to describe this milestone in three (3) emojis, they would be: **🛒🥛📱**
 
@@ -23,18 +23,18 @@ If we had to describe this milestone in three (3) emojis, they would be: **🛒�
 The following REQUIRED features are completed:
 
 - [X] Creation of GitHub Organization and Group Project Repo
-- [ ] Updated Course Portal group info with Group Name and App Description
+- [X] Updated Course Portal group info with Group Name and App Description
 
 The following REQUIRED files are included:
 
-- [ ] Included 📄 `brainstorming.md`, which contains:
-  - [ ] Our initial brainstorming ideas (6+ ideas)
-  - [ ] 5-category evaluation of our top 3 ideas
-  - [ ] Final app idea chosen
-- [ ] Included 📄 `project_spec.md`, which contains:
-  - [ ] App Overview: Description and evaluation
-  - [ ] App Spec: User features, Chosen API(s), User Interactions
-  - [ ] Wireframe image(s)
+- [X] Included 📄 `brainstorming.md`, which contains:
+  - [X] Our initial brainstorming ideas (6+ ideas)
+  - [X] 5-category evaluation of our top 3 ideas
+  - [X] Final app idea chosen
+- [X] Included 📄 `project_spec.md`, which contains:
+  - [X] App Overview: Description and evaluation
+  - [X] App Spec: User features, Chosen API(s), User Interactions
+  - [X] Wireframe image(s)
 
 The following BONUS features are implemented:
 

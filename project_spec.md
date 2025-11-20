@@ -1,4 +1,4 @@
-# **APP_NAME_HERE**
+# **Dairy Shop**
 
 ## Table of Contents
 
@@ -11,7 +11,7 @@
 
 ### Description 
 
-**Description of your app**
+**The Dairy Shop app is a mobile app where you can shop for all of your high-quality and diverse dairy needs. It's modern, intuitive to use, and fits your needs whether personal or business*
 
 ### App Evaluation
 
@@ -30,31 +30,47 @@
 
 Required Features:
 
-- **fill in here**
-- ...
+- User can search for products
+- User can filter results based on product type (milk, butter, cheese)
+- User can sort items by price
+- User can add items to cart
+- User can see calculated total
 
 Stretch Features:
 
-- **fill in here**
-- ...
+- User can save favorite items
+- User can create a shopping list
+- User can save orders
 
 ### 2. Chosen API(s)
 
-- **list first API endpoint here**
-  - **list associated required feature here**
-  - ...
-- ...
+- Milk
+    - Retrieve different milk products with name, price, and image
+- Butter
+    - Retrieve different butter products with name, price, and image
+- Cheese
+    - Retrieve different cheese products with name, price, and image
 
 ### 3. User Interaction
 
 Required Feature
 
-- **list first user action here**
-  - => **list result of user action here**
-  - ...
-- **list second user action here**
-  - => **list result of user action here**
-  - ...
+- Milk: User can search for milk products
+    - User adds milk product to cart
+  - => **Cart number updates**
+- Butter: User can search for butter products
+    - User adds butter product to cart
+  - => **Cart number updates**
+- Cheese: User can search for cheese products
+    - User adds cheese product to cart
+  - => **Cart number updates**
+- User can click each product
+    - User sees product details
+  - => **Retrieve product details from corresponding API**
+- User can open shopping cart
+    - User sees cart and can remove items or change quantity
+  - => **Cart number and price updates**
+
 
 ## Wireframes
 
@@ -74,7 +90,7 @@ For Milestone 2, include **2+ Videos/GIFs** of the build process here!
 
 ## License
 
-Copyright **yyyy** **your name**
+Copyright **2025** **Jesus Lopez**
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

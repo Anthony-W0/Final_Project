@@ -1,0 +1,32 @@
+[
+  {
+    "name": "WholeMilk",
+    "price": 3.99,
+    "imageUrl": "https://github.com/jmora0137/grocery-images/blob/main/Whole%20Milk.jpg?raw=true",
+    "id": "1"
+  },
+  {
+    "name": "AlmondMilk",
+    "price": 4.49,
+    "imageUrl": "https://github.com/jmora0137/grocery-images/blob/main/Almond.jpg?raw=true",
+    "id": "2"
+  },
+  {
+    "name": "OatMilk",
+    "price": 5.29,
+    "imageUrl": "https://github.com/jmora0137/grocery-images/blob/main/Oat.png?raw=true",
+    "id": "3"
+  },
+  {
+    "name": "SkimMilk",
+    "price": 3.49,
+    "imageUrl": "https://github.com/jmora0137/grocery-images/blob/main/Skim-Milk-Gallon.jpg?raw=true",
+    "id": "4"
+  },
+  {
+    "name": "ChocolateMilk",
+    "price": 2.99,
+    "imageUrl": "https://github.com/jmora0137/grocery-images/blob/main/Chocolate.jpg?raw=true",
+    "id": "5"
+  }
+]

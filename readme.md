@@ -3,7 +3,7 @@
 # AND101 Milestone 1 - **Team/App Name**
 
 Submitted by:
-- **Chirstian Hernandez**
+- **Christian Hernandez**
 - **Anthony Whitemore**
 - **Joshua Moralez**
 - **Jesus Lopez**

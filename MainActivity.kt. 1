@@ -1,0 +1,135 @@
+package com.example.dairy_app
+
+import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.codepath.asynchttpclient.AsyncHttpClient
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler
+import okhttp3.Headers
+import org.json.JSONArray
+import org.json.JSONObject
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+
+// -------------------------
+// DATA MODEL
+// -------------------------
+data class Dairy(
+    val id: String,
+    val name: String,
+    val price: Double,
+    val imageUrl: String
+)
+
+// -------------------------
+// ADAPTER
+// -------------------------
+class DairyAdapter(
+    private val dairyList: MutableList<Dairy>,
+    private val onAddToCartClick: (Dairy) -> Unit
+) : RecyclerView.Adapter<DairyAdapter.DairyViewHolder>() {
+
+    class DairyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val nameText: TextView = itemView.findViewById(R.id.nameText)
+        val priceText: TextView = itemView.findViewById(R.id.priceText)
+        val itemImage: ImageView = itemView.findViewById(R.id.itemImage)
+        val addButton: Button = itemView.findViewById(R.id.addButton)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DairyViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.dairy_item, parent, false)
+        return DairyViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: DairyViewHolder, position: Int) {
+        val item = dairyList[position]
+
+        holder.nameText.text = item.name
+        holder.priceText.text = "$${item.price}"
+
+        Glide.with(holder.itemView)
+            .load(item.imageUrl)
+            .centerCrop()
+            .into(holder.itemImage)
+
+        holder.addButton.setOnClickListener {
+            onAddToCartClick(item)
+        }
+    }
+
+    override fun getItemCount(): Int = dairyList.size
+}
+
+// -------------------------
+// MAIN ACTIVITY
+// -------------------------
+class MainActivity : AppCompatActivity() {
+
+    private val apiUrl = "https://691a34f72d8d7855756e2877.mockapi.io/milks"
+    private val dairyList = mutableListOf<Dairy>()
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: DairyAdapter
+
+    private val client = AsyncHttpClient()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        recyclerView = findViewById(R.id.dairyRecycler)
+        adapter = DairyAdapter(dairyList) { item ->
+            Log.d("CART", "Added to cart: ${item.name}")
+        }
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+
+        fetchDairyProducts()
+    }
+
+    private fun fetchDairyProducts() {
+        client.get(apiUrl, object : JsonHttpResponseHandler() {
+
+            override fun onSuccess(statusCode: Int, headers: Headers, json: JSON) {
+                Log.d("API", "Response: $json")
+
+                val array: JSONArray = json.jsonArray
+
+                for (i in 0 until array.length()) {
+                    val obj: JSONObject = array.getJSONObject(i)
+
+                    val id = obj.optString("id")
+                    val name = obj.optString("name", "Unknown")
+
+                    val price = obj.optString("price", "0.0").toDoubleOrNull() ?: 0.0
+                    
+                    val image = obj.optString("image_url", "")
+
+                    dairyList.add(Dairy(id, name, price, image))
+                }
+
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Headers?,
+                response: String?,
+                throwable: Throwable?
+            ) {
+                Log.e("API", "FAILED → $statusCode\n$response")
+            }
+        })
+    }
+}
+
+
+

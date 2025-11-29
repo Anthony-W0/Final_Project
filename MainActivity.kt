@@ -1,5 +1,6 @@
 package com.example.dairy_app
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -10,13 +11,16 @@ import com.codepath.asynchttpclient.AsyncHttpClient
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler
 import okhttp3.Headers
 import org.json.JSONArray
-import org.json.JSONObject
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import kotlin.jvm.java
+
 
 // -------------------------
 // DATA MODEL
@@ -52,20 +56,26 @@ class DairyAdapter(
     override fun onBindViewHolder(holder: DairyViewHolder, position: Int) {
         val item = dairyList[position]
 
-        holder.nameText.text = item.name
-        holder.priceText.text = "$${item.price}"
-
         Glide.with(holder.itemView)
             .load(item.imageUrl)
             .centerCrop()
             .into(holder.itemImage)
 
+
+        holder.nameText.text = item.name
+        holder.priceText.text = "$${item.price}"
+
+
+
         holder.addButton.setOnClickListener {
+            Cart.addItem(item)
             onAddToCartClick(item)
         }
-    }
+      }
 
     override fun getItemCount(): Int = dairyList.size
+
+
 }
 
 // -------------------------
@@ -73,7 +83,8 @@ class DairyAdapter(
 // -------------------------
 class MainActivity : AppCompatActivity() {
 
-    private val apiUrl = "https://691a34f72d8d7855756e2877.mockapi.io/milks"
+
+    private val apiUrl = "https://691a2d109ccba073ee95192f.mockapi.io/api/dairy/Dairy_Products"
     private val dairyList = mutableListOf<Dairy>()
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: DairyAdapter
@@ -92,6 +103,15 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
+
+        val checkoutButton = findViewById<Button>(R.id.checkoutButton)
+
+        checkoutButton.setOnClickListener {
+            val intent = Intent(this, CheckoutActivity::class.java)
+            startActivity(intent)
+        }
+
+
         fetchDairyProducts()
     }
 
@@ -99,21 +119,22 @@ class MainActivity : AppCompatActivity() {
         client.get(apiUrl, object : JsonHttpResponseHandler() {
 
             override fun onSuccess(statusCode: Int, headers: Headers, json: JSON) {
-                Log.d("API", "Response: $json")
+                Log.d("IMG", "imageUrl: ${json.jsonObject}")
 
                 val array: JSONArray = json.jsonArray
 
                 for (i in 0 until array.length()) {
-                    val obj: JSONObject = array.getJSONObject(i)
+                    val obj = array.getJSONObject(i)
 
                     val id = obj.optString("id")
                     val name = obj.optString("name", "Unknown")
 
                     val price = obj.optString("price", "0.0").toDoubleOrNull() ?: 0.0
                     
-                    val image = obj.optString("image_url", "")
+                    val image = obj.optString("imageUrl", "")
 
                     dairyList.add(Dairy(id, name, price, image))
+
                 }
 
                 adapter.notifyDataSetChanged()
@@ -126,10 +147,13 @@ class MainActivity : AppCompatActivity() {
                 throwable: Throwable?
             ) {
                 Log.e("API", "FAILED → $statusCode\n$response")
+
             }
+
         })
     }
 }
+
 
 
 

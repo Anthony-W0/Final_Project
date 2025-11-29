@@ -1,0 +1,19 @@
+package com.example.dairy_app
+
+object Cart {
+    val items = mutableListOf<Dairy>()
+
+    fun addItem(item: Dairy) {
+        items.add(item)
+
+    }
+
+    fun clear() {
+        items.clear()
+
+    }
+
+    fun totalPrice(): Double {
+        return items.sumOf { it.price }
+    }
+}
